@@ -19,8 +19,8 @@ func _process(delta: float) -> void:
 		printerr("LevelTemplate: no player detected!")
 	elif (player.global_position.x < (global_position.x - (3 * levelLength))) or (player.global_position.x > (global_position.x + (3 * levelLength))):
 		# The player has gotten far enough away from this template so delete
-		print("A Level Template was deleted!")
 		deleteTemplate()
 
 func deleteTemplate() -> void:
+	print("A Level Template was deleted!")
 	queue_free()
