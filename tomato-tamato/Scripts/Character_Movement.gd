@@ -6,11 +6,6 @@ const SPEED = 300.0
 @export var JUMP_VELOCITY = -600.0
 @export var JUMP_MULTIPLIER = 0.3
 
-@export_category("Stats")
-@export var HEALTH = 100
-@export var ARMOR = 10
-@export var ATTACK = 10
-
 func _physics_process(delta: float) -> void:
 	# gravity
 	if not is_on_floor():
@@ -33,7 +28,3 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		
 	move_and_slide()
-	
-func _decrease_health(damage : int) -> void:
-	HEALTH -= damage
-	print("[HEALTH]: ", HEALTH)

@@ -2,12 +2,11 @@ extends Area2D
 class_name death_block
 
 @export_category("Player info")
-@export var player_health : character_movement
+@export var player_stats : PlayerStats
 @export var damage : int = 10
 
 @export_category("Teleport points")
 @export var teleport_point : Area2D
-@export var spawn_point : Marker2D
 
 #Trigger Collider
 func _on_body_entered(body: Node2D) -> void:
@@ -15,7 +14,8 @@ func _on_body_entered(body: Node2D) -> void:
 		print("Player entered trigger area")
 		
 		# Damage player health
-		player_health._decrease_health(damage)
+		player_stats.health -= damage
+		print("[HEALTH]: ", player_stats.health)
 	
 		# Spawn player after
 		if teleport_point:

@@ -1,11 +1,25 @@
 [gd_scene format=3 uid="uid://es45gbr6hvui"]
 
 [ext_resource type="PackedScene" uid="uid://jgm6fo4bq042" path="res://Scenes/character.tscn" id="1_8n7cf"]
+[ext_resource type="Script" uid="uid://cetd62beqy875" path="res://Scripts/Armour_Boost.gd" id="2_7274a"]
 [ext_resource type="Texture2D" uid="uid://drtxftx036u5w" path="res://Art/drive-download-20260917T205431Z-1-001/CharacterSelect_NameTag_Name_Unselected.png" id="2_kti7u"]
 [ext_resource type="Script" uid="uid://clrfjfajln10e" path="res://Scripts/Death_Block.gd" id="3_kti7u"]
+[ext_resource type="Script" uid="uid://doe8vwtg2v60j" path="res://Scripts/Player_Stats.gd" id="3_vayem"]
+[ext_resource type="Texture2D" uid="uid://dd1ja0sp5x3n1" path="res://Art/drive-download-20260917T205431Z-1-001/CharacterSelect_NameTag_PlayerToggle_Unselected.png" id="4_p2t55"]
+
+[sub_resource type="Resource" id="Resource_kti7u"]
+script = ExtResource("3_vayem")
+metadata/_custom_type_script = "uid://doe8vwtg2v60j"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y7k6p"]
+size = Vector2(6.2000017, 99)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbr7n"]
 size = Vector2(321, 86)
+
+[sub_resource type="Resource" id="Resource_p2t55"]
+script = ExtResource("3_vayem")
+metadata/_custom_type_script = "uid://doe8vwtg2v60j"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_23u0k"]
 size = Vector2(328, 93)
@@ -20,6 +34,23 @@ JUMP_VELOCITY = -650.0
 visible = false
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Pickable Items" type="Node" parent="." unique_id=846075099]
+
+[node name="Armour Boost" type="Area2D" parent="Pickable Items" unique_id=1379797272]
+position = Vector2(616, 961)
+scale = Vector2(5, 0.5)
+script = ExtResource("2_7274a")
+player_stats = SubResource("Resource_kti7u")
+
+[node name="Sprite2D" type="Sprite2D" parent="Pickable Items/Armour Boost" unique_id=1971447526]
+position = Vector2(-59.300064, -881)
+scale = Vector2(0.1, 1)
+texture = ExtResource("4_p2t55")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickable Items/Armour Boost" unique_id=1082152759]
+position = Vector2(-59.300003, -881.5)
+shape = SubResource("RectangleShape2D_y7k6p")
 
 [node name="Blocks" type="Node" parent="." unique_id=1084391851]
 
@@ -67,11 +98,11 @@ texture = ExtResource("2_kti7u")
 position = Vector2(106.50006, 267)
 shape = SubResource("RectangleShape2D_xbr7n")
 
-[node name="Death Block" type="Area2D" parent="Blocks" unique_id=812797404 node_paths=PackedStringArray("player_health", "teleport_point")]
+[node name="Death Block" type="Area2D" parent="Blocks" unique_id=812797404 node_paths=PackedStringArray("teleport_point")]
 position = Vector2(620.5003, 635.5)
 scale = Vector2(5, 0.5)
 script = ExtResource("3_kti7u")
-player_health = NodePath("../../Player")
+player_stats = SubResource("Resource_p2t55")
 teleport_point = NodePath("../Teleport Point")
 
 [node name="Sprite2D" type="Sprite2D" parent="Blocks/Death Block" unique_id=1939735345]
@@ -104,4 +135,5 @@ position = Vector2(1, 0.5)
 shape = SubResource("RectangleShape2D_23u0k")
 one_way_collision = true
 
+[connection signal="body_entered" from="Pickable Items/Armour Boost" to="Pickable Items/Armour Boost" method="_on_body_entered"]
 [connection signal="body_entered" from="Blocks/Death Block" to="Blocks/Death Block" method="_on_body_entered"]
