@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 
 @export var testTemplateScene: PackedScene
@@ -34,7 +34,7 @@ func generateNextTemplate() -> void:
 	
 	var templateInstance = template.instantiate() # allocate memory
 	templateInstance.global_position = Vector2(nextTemplateLocation, 0) # adjust position of new template
-	#templateInstance.player = playerCharacter # give the template a reference to the player (for use with garbage collection)
+	templateInstance.player = playerCharacter # give the template a reference to the player (for use with garbage collection)
 	nextTemplateLocation += templateInstance.levelLength # update nextTemplateLocation
 	add_child(templateInstance) # add it to the hierarchy
 
