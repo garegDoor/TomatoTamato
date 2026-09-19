@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://cg41utb8tvnbl"]
+
+[ext_resource type="Script" uid="uid://cx2hmemw3fq1m" path="res://LevelGenerator.gd" id="1_utvj2"]
+[ext_resource type="PackedScene" uid="uid://dgvvwg34a2vra" path="res://level_template_1.tscn" id="2_d2wjo"]
+[ext_resource type="Script" uid="uid://d3xd8iyapcijt" path="res://levelgentestplayer.gd" id="2_hh86m"]
+[ext_resource type="Texture2D" uid="uid://dd0tyrw3hfx4o" path="res://icon.svg" id="2_uok1l"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c21mv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c21mv"]
+
+[node name="LevelGenTest" type="Node2D" unique_id=1446525162 node_paths=PackedStringArray("playerCharacter")]
+script = ExtResource("1_utvj2")
+playerCharacter = NodePath("Test Player")
+templates = Array[PackedScene]([ExtResource("2_d2wjo")])
+
+[node name="Test Player" type="CharacterBody2D" parent="." unique_id=1746605111]
+position = Vector2(600, 100)
+collision_mask = 3
+script = ExtResource("2_hh86m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Test Player" unique_id=1017361699]
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_c21mv")
+debug_color = Color(0, 0.6, 0.69803923, 0.4)
+
+[node name="Sprite2D" type="Sprite2D" parent="Test Player" unique_id=297129681]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_uok1l")
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1470338649]
+position = Vector2(600, 600)
+scale = Vector2(25, 3)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=562659404]
+shape = SubResource("RectangleShape2D_c21mv")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor" unique_id=797335148]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_uok1l")
