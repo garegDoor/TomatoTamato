@@ -4,7 +4,7 @@ class_name character_movement
 @export_category("Movement")
 const SPEED = 300.0
 @export var JUMP_VELOCITY = -600.0
-@export var JUMP_MULTIPLIER = 0.3
+@export var JUMP_MULTIPLIER = 0.2
 
 func _physics_process(delta: float) -> void:
 	# gravity
