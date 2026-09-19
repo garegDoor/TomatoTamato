@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://jgm6fo4bq042"]
+
+[ext_resource type="Script" uid="uid://653uxttwk6ga" path="res://Scripts/Character_Movement.gd" id="1_ushfy"]
+[ext_resource type="Texture2D" uid="uid://d3e6pecs1bfwg" path="res://Art/drive-download-20260917T205431Z-1-001/CharacterSelect_NameTag_CPUToggle_Unselected.png" id="2_owm7s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_23u0k"]
+size = Vector2(60, 98)
+
+[node name="Character" type="CharacterBody2D" unique_id=1209023298]
+script = ExtResource("1_ushfy")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=132458880]
+offset_right = 76.0
+offset_bottom = 126.0
+texture = ExtResource("2_owm7s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=911637871]
+position = Vector2(38, 63)
+shape = SubResource("RectangleShape2D_23u0k")

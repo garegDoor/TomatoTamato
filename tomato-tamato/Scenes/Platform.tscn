@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://es45gbr6hvui"]
+
+[ext_resource type="PackedScene" uid="uid://jgm6fo4bq042" path="res://Scenes/character.tscn" id="1_8n7cf"]
+[ext_resource type="Texture2D" uid="uid://drtxftx036u5w" path="res://Art/drive-download-20260917T205431Z-1-001/CharacterSelect_NameTag_Name_Unselected.png" id="2_kti7u"]
+[ext_resource type="Script" uid="uid://clrfjfajln10e" path="res://Scripts/Death_Block.gd" id="3_kti7u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbr7n"]
+size = Vector2(321, 86)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_23u0k"]
+size = Vector2(328, 93)
+
+[node name="Platform" type="Node2D" unique_id=1623374531]
+
+[node name="Player" parent="." unique_id=1209023298 groups=["Player"] instance=ExtResource("1_8n7cf")]
+position = Vector2(88, 311)
+JUMP_VELOCITY = -650.0
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1450234279]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Blocks" type="Node" parent="." unique_id=1084391851]
+
+[node name="StaticBlock1" type="StaticBody2D" parent="Blocks" unique_id=2048876998]
+position = Vector2(88, 328)
+
+[node name="Sprite2D" type="Sprite2D" parent="Blocks/StaticBlock1" unique_id=97417091]
+position = Vector2(107.00006, 268)
+texture = ExtResource("2_kti7u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBlock1" unique_id=936157442]
+position = Vector2(106.50006, 267)
+shape = SubResource("RectangleShape2D_xbr7n")
+
+[node name="StaticBlock2" type="StaticBody2D" parent="Blocks" unique_id=436934506]
+position = Vector2(552, 325)
+
+[node name="Sprite2D" type="Sprite2D" parent="Blocks/StaticBlock2" unique_id=1292387404]
+position = Vector2(107.00006, 268)
+texture = ExtResource("2_kti7u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBlock2" unique_id=290950676]
+position = Vector2(106.50006, 267)
+shape = SubResource("RectangleShape2D_xbr7n")
+
+[node name="StaticBlock3" type="StaticBody2D" parent="Blocks" unique_id=960927972]
+position = Vector2(977, 116)
+
+[node name="Sprite2D" type="Sprite2D" parent="Blocks/StaticBlock3" unique_id=484312990]
+position = Vector2(107.00006, 268)
+texture = ExtResource("2_kti7u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBlock3" unique_id=909687758]
+position = Vector2(106.50006, 267)
+shape = SubResource("RectangleShape2D_xbr7n")
+
+[node name="StaticBlock4" type="StaticBody2D" parent="Blocks" unique_id=1891731786]
+position = Vector2(321, 12)
+
+[node name="Sprite2D" type="Sprite2D" parent="Blocks/StaticBlock4" unique_id=1656697151]
+position = Vector2(107.00006, 268)
+texture = ExtResource("2_kti7u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBlock4" unique_id=1969352191]
+position = Vector2(106.50006, 267)
+shape = SubResource("RectangleShape2D_xbr7n")
+
+[node name="Death Block" type="Area2D" parent="Blocks" unique_id=812797404 node_paths=PackedStringArray("player_health", "teleport_point")]
+position = Vector2(620.5003, 635.5)
+scale = Vector2(5, 0.5)
+script = ExtResource("3_kti7u")
+player_health = NodePath("../../Player")
+teleport_point = NodePath("../Teleport Point")
+
+[node name="Sprite2D" type="Sprite2D" parent="Blocks/Death Block" unique_id=1939735345]
+position = Vector2(0.5, 1)
+texture = ExtResource("2_kti7u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/Death Block" unique_id=2100389382]
+shape = SubResource("RectangleShape2D_xbr7n")
+
+[node name="Teleport Point" type="Area2D" parent="Blocks" unique_id=2066531474]
+position = Vector2(143, 342)
+scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Blocks/Teleport Point" unique_id=749238789]
+position = Vector2(0.5, 1)
+texture = ExtResource("2_kti7u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/Teleport Point" unique_id=51250428]
+visible = false
+shape = SubResource("RectangleShape2D_xbr7n")
+
+[node name="CharacterSelectNameTagNameUnselected" type="Sprite2D" parent="." unique_id=762452990]
+visible = false
+position = Vector2(581.00006, 550)
+scale = Vector2(3.5, 0.5)
+texture = ExtResource("2_kti7u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterSelectNameTagNameUnselected" unique_id=94016199]
+position = Vector2(1, 0.5)
+shape = SubResource("RectangleShape2D_23u0k")
+one_way_collision = true
+
+[connection signal="body_entered" from="Blocks/Death Block" to="Blocks/Death Block" method="_on_body_entered"]
