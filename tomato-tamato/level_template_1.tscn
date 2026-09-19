@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dmmc1me08m5ai" path="res://template_end_of_level_line.gd" id="3_14r6o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13cnh"]
+size = Vector2(24.933334, 20)
 
 [node name="Level Template 1" type="Node2D" unique_id=1658548185]
 script = ExtResource("1_13cnh")

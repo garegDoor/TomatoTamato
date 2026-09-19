@@ -8,11 +8,13 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c21mv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c21mv"]
+size = Vector2(25.44, 20)
 
 [node name="LevelGenTest" type="Node2D" unique_id=1446525162 node_paths=PackedStringArray("playerCharacter")]
 script = ExtResource("1_utvj2")
 playerCharacter = NodePath("Test Player")
 templates = Array[PackedScene]([ExtResource("2_d2wjo")])
+margin = 100.0
 
 [node name="Test Player" type="CharacterBody2D" parent="." unique_id=1746605111]
 position = Vector2(600, 100)
@@ -28,6 +30,8 @@ debug_color = Color(0, 0.6, 0.69803923, 0.4)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_uok1l")
 
+[node name="Camera2D" type="Camera2D" parent="Test Player" unique_id=49117295]
+
 [node name="Floor" type="StaticBody2D" parent="." unique_id=1470338649]
 position = Vector2(600, 600)
 scale = Vector2(25, 3)
@@ -35,6 +39,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=562659404]
+position = Vector2(-0.040000916, 0)
 shape = SubResource("RectangleShape2D_c21mv")
 
 [node name="Sprite2D" type="Sprite2D" parent="Floor" unique_id=797335148]
