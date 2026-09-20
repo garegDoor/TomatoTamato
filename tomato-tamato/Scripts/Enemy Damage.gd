@@ -12,3 +12,4 @@ func _on_body_entered(body: Node2D) -> void:
 		
 		# Damage player health
 		player_stats.health -= damage
+		print("[PLAYER HEALTH]: ", player_stats.health)

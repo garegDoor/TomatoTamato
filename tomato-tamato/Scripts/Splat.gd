@@ -14,6 +14,8 @@ func _on_body_entered(body: Node2D) -> void:
 		print("Enemy entered trigger area")
 		#enemy damage logic
 		enemy_stats.health -= damage
+		print("[ENEMY HEALTH]: ", enemy_stats.health)
+		queue_free()
 		
 	if body.is_in_group("Platform"):
 		print("Projectile touched platform")
