@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://da5a8p4w2ingy"]
+
+[ext_resource type="Script" uid="uid://clvbd17goacq8" path="res://Scripts/Projectile.gd" id="1_k1cl8"]
+[ext_resource type="Script" uid="uid://d1p32qujvruqn" path="res://Scripts/Splat.gd" id="2_0tri7"]
+[ext_resource type="Texture2D" uid="uid://dufu0c6msso6v" path="res://Art/drive-download-20260917T205431Z-1-001/CharacterSelect_NameTag_PlayerToggle_Selected.png" id="2_y0kec"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_23u0k"]
+radius = 21.213203
+
+[node name="Projectile" type="CharacterBody2D" unique_id=93021215]
+script = ExtResource("1_k1cl8")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1257507435 groups=["Tomato"]]
+script = ExtResource("2_0tri7")
+
+[node name="Tomato" type="Sprite2D" parent="Area2D" unique_id=813887278]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_y0kec")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=745320545]
+shape = SubResource("CircleShape2D_23u0k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=699073855]
+visible = false
+position = Vector2(300, 204)
+shape = SubResource("CircleShape2D_23u0k")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
