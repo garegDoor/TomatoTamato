@@ -14,7 +14,7 @@ size = Vector2(25.44, 20)
 script = ExtResource("1_utvj2")
 playerCharacter = NodePath("Test Player")
 templates = Array[PackedScene]([ExtResource("2_d2wjo")])
-margin = 100.0
+margin = 500.0
 
 [node name="Test Player" type="CharacterBody2D" parent="." unique_id=1746605111 groups=["player"]]
 position = Vector2(600, 100)

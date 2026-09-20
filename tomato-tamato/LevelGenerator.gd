@@ -1,7 +1,6 @@
 extends Node2D
 
 
-@export var testTemplateScene: PackedScene
 @export var playerCharacter: Node2D
 @export var templates: Array[PackedScene] = []
 
@@ -30,18 +29,20 @@ func generateNextTemplate() -> void:
 	if template == null:
 		printerr("Level Generator: Failed to pick a template!")
 		return
-	genObstacles(template)
 	
 	var templateInstance = template.instantiate() # allocate memory
+	add_child(templateInstance) # add it to the hierarchy
 	templateInstance.global_position = Vector2(nextTemplateLocation, 0) # adjust position of new template
 	templateInstance.player = playerCharacter # give the template a reference to the player (for use with garbage collection)
+	
+	genObstacles(templateInstance) # tell template to generate its obstacles
+	
 	nextTemplateLocation += templateInstance.levelLength # update nextTemplateLocation
-	add_child(templateInstance) # add it to the hierarchy
 
 func pickTemplate() -> PackedScene:
 	var randTemplate = templates.pick_random()
 	
 	return randTemplate
 
-func genObstacles(template: PackedScene) -> void:
-	pass
+func genObstacles(template: Node2D) -> void:
+	template.genObstacles()

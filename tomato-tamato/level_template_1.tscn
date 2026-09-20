@@ -2,14 +2,17 @@
 
 [ext_resource type="Texture2D" uid="uid://dd0tyrw3hfx4o" path="res://icon.svg" id="1_3m4cm"]
 [ext_resource type="Script" uid="uid://dvskujxcjceh" path="res://LevelTemplate.gd" id="1_13cnh"]
+[ext_resource type="PackedScene" uid="uid://bhpok6jxb0eh6" path="res://spike_obstacle.tscn" id="2_myf7l"]
 [ext_resource type="Script" uid="uid://dmmc1me08m5ai" path="res://template_end_of_level_line.gd" id="3_14r6o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13cnh"]
 size = Vector2(24.933334, 20)
 
-[node name="Level Template 1" type="Node2D" unique_id=1658548185]
+[node name="Level Template 1" type="Node2D" unique_id=1658548185 node_paths=PackedStringArray("obstacleLocations")]
 script = ExtResource("1_13cnh")
 levelLength = 1150.0
+potentialObstacles = Array[PackedScene]([ExtResource("2_myf7l")])
+obstacleLocations = [NodePath("Obstacle Location")]
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=1893876332]
 position = Vector2(250, 600)
@@ -41,3 +44,6 @@ texture = ExtResource("1_3m4cm")
 script = ExtResource("3_14r6o")
 levelTemplate = NodePath("..")
 line_length = 650.0
+
+[node name="Obstacle Location" type="Node2D" parent="." unique_id=994142787]
+position = Vector2(850, 550)
