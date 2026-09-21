@@ -1,7 +1,7 @@
 extends Area2D
 class_name tomato
 
-@export var count : int = 1
+@export var count : int = 5
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):

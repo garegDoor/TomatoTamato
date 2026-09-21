@@ -18,11 +18,12 @@ var facing_direction : float = 1.0
 
 const MIN_POWER := 300.0
 const MAX_POWER := 1200.0
-const MAX_CHARGE := 1.5
+const MAX_CHARGE := 2.0
 
 const CHARGE_SPEED := 800.0
 var charging := false
 var charging_time := 0.0
+var aim_angle := 45.0
 
 @export_category("Spawning Points")
 @export var right_muzzle: Marker2D
@@ -34,6 +35,11 @@ var charging_time := 0.0
 @onready var damage_cooldown = $ShootCoolDown
 var can_shoot : bool = true
 var can_damage : bool = true
+
+@export_category("Knock-back")
+@export var speed : float = 200.0
+@export var knockback_res : float = 800.0
+var knockback : Vector2 = Vector2.ZERO
 
 func _ready():
 	#shoot_cooldown.timeout.connect(on_shoot_cooldown_timeout)
@@ -74,11 +80,13 @@ func _physics_process(delta: float) -> void:
 		print("tomato: ", player_stats.tomato)
 		
 	if Input.is_action_pressed("Shoot") and can_shoot and charging:
+		charging = true
 		aim(delta)
 		
 	if Input.is_action_just_released("Shoot") and can_shoot:
-		charging = false
 		shoot()
+		charging = false
+		charging_time = 0.0
 		
 	# Movement input
 	var direction := Input.get_axis("Left", "Right")
@@ -103,8 +111,9 @@ func _physics_process(delta: float) -> void:
 	
 			collider.enemy_stats.attack *= collider.damage_multiplier
 			player_stats.damage_health(collider.enemy_stats.attack)
-			print("[PLAYER HEALTH]: ", player_stats.health)
-			
+			print("[PLAYER'S HEALTH]: ", player_stats.health)
+			knockback = knockback.move_toward(Vector2.ZERO, knockback_res * delta)
+			apply_knockback(collider, 10.0)
 	
 func aim(delta : float) -> void:
 	charging_time += delta
@@ -113,28 +122,26 @@ func aim(delta : float) -> void:
 func shoot():
 	if projectile == null or not can_shoot:
 		return
-		
-	#can_shoot = false
-	#shoot_cooldown.start()
 	
 	var charging_percent = charging_time / MAX_CHARGE
 	var shoot_power = lerp(MIN_POWER, MAX_POWER, charging_percent)
 	
 	var instance = projectile.instantiate()
-	#instance.direction = Vector2(facing_direction, 0.0)
 	main.add_child.call_deferred(instance)
 	instance.spawnPos = right_muzzle.global_position
 
-	instance.velocity = Vector2(shoot_power * facing_direction, shoot_power * -1.5)
-	
-	charging_time = 0.0
+	instance.velocity = Vector2(shoot_power * facing_direction, shoot_power * -1.0)
 	
 	player_stats.remove_tomato_count(1)
 	
 func on_damage_cooldown_timeout():
 	can_damage = true
 	
+func apply_knockback(enemy_global_position : Vector2, force : float) -> void:
+	print("knockback")
+	var direction = (global_position - enemy_global_position).normalized()
+	knockback = direction * force
+	
 func on_death():
-	#print("health: ", player_stats.health)
 	if player_stats.health <= 0:
 		queue_free()

@@ -106,8 +106,10 @@ shape = SubResource("RectangleShape2D_xbr7n")
 
 [node name="StaticBlock3" type="StaticBody2D" parent="Blocks" unique_id=724513488 groups=["Platform"]]
 position = Vector2(1033, 394)
+collision_layer = 3
+collision_mask = 7
 
-[node name="Area2D" type="Area2D" parent="Blocks/StaticBlock3" unique_id=1884076706]
+[node name="Area2D" type="Area2D" parent="Blocks/StaticBlock3" unique_id=1884076706 groups=["Platform"]]
 position = Vector2(2, 2)
 collision_layer = 2
 
@@ -125,8 +127,10 @@ shape = SubResource("RectangleShape2D_xbr7n")
 
 [node name="StaticBlock4" type="StaticBody2D" parent="Blocks" unique_id=1755300601 groups=["Platform"]]
 position = Vector2(398, 259)
+collision_layer = 3
+collision_mask = 7
 
-[node name="Area2D" type="Area2D" parent="Blocks/StaticBlock4" unique_id=2081273114]
+[node name="Area2D" type="Area2D" parent="Blocks/StaticBlock4" unique_id=2081273114 groups=["Platform"]]
 position = Vector2(2, 2)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Blocks/StaticBlock4/Area2D" unique_id=1742461568]
@@ -167,24 +171,24 @@ texture = ExtResource("2_kti7u")
 visible = false
 shape = SubResource("RectangleShape2D_xbr7n")
 
-[node name="StaticBlock5" type="StaticBody2D" parent="Blocks" unique_id=1830872946 groups=["Platform"]]
-position = Vector2(948, 519)
+[node name="StaticBlock5" type="StaticBody2D" parent="Blocks" unique_id=455596560 groups=["Platform"]]
+position = Vector2(947, 545)
 collision_layer = 3
 collision_mask = 7
 
-[node name="Area2D" type="Area2D" parent="Blocks/StaticBlock5" unique_id=153002006]
+[node name="Area2D" type="Area2D" parent="Blocks/StaticBlock5" unique_id=301185905]
 position = Vector2(2, 2)
 collision_layer = 2
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Blocks/StaticBlock5/Area2D" unique_id=952930638]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Blocks/StaticBlock5/Area2D" unique_id=529459830]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_xbr7n")
 
-[node name="Sprite2D" type="Sprite2D" parent="Blocks/StaticBlock5" unique_id=1023636151]
+[node name="Sprite2D" type="Sprite2D" parent="Blocks/StaticBlock5" unique_id=771685002]
 position = Vector2(2.5, 0)
 texture = ExtResource("2_kti7u")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBlock5" unique_id=838481759]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBlock5" unique_id=737755496]
 position = Vector2(2, -1)
 shape = SubResource("RectangleShape2D_xbr7n")
 

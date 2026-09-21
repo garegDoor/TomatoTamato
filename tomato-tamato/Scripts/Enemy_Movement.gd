@@ -17,6 +17,11 @@ var direction : int = 1
 @onready var damage_cooldown = $DamageCoolDown
 var can_damage : bool = true
 
+@export_category("Knock-back")
+@export var speed : float = 200.0
+@export var knockback_res : float = 800.0
+var knockback : Vector2 = Vector2.ZERO
+
 func _ready():
 	damage_cooldown.timeout.connect(on_damage_cooldown_timeout)
 	
@@ -40,8 +45,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	for i in range(get_slide_collision_count()):
-		var collision = get_slide_collision(i)
-		var collider = collision.get_collider()
+		var collision := get_slide_collision(i)
+		var collider := collision.get_collider()
 			
 		if collider.is_in_group("Player") and can_damage:
 			can_damage = false
@@ -50,10 +55,13 @@ func _physics_process(delta: float) -> void:
 			enemy_stats.attack *= damage_multiplier
 			collider.player_stats.damage_health(enemy_stats.attack)
 			print("[PLAYER HEALTH]: ", collider.player_stats.health)
+			knockback = knockback.move_toward(Vector2.ZERO, knockback_res * delta)
+			apply_knockback(collider.global_position, 1000.0)
 			
-		elif collider.is_in_group("Platform"):
-			print("Coolided with platform!")
-			face_other_way()
+		if collider.is_in_group("Platform"):
+			var normal := collision.get_normal()
+			if abs(normal.x) > 0.5:
+				face_other_way()
 	
 func face_other_way():
 	direction = -direction
@@ -61,6 +69,11 @@ func face_other_way():
 	
 func on_damage_cooldown_timeout():
 	can_damage = true
+
+func apply_knockback(enemy_global_position : Vector2, force : float) -> void:
+	print("knockback")
+	var directions = (global_position - enemy_global_position).normalized()
+	knockback = directions * force
 	
 func on_death():
 	if enemy_stats.health <= 0:
