@@ -13,10 +13,10 @@ size = Vector2(61, 96)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=555584308]
 collision_layer = 6
-collision_mask = 6
+collision_mask = 7
 script = ExtResource("1_xeo28")
 enemy_stats = SubResource("Resource_dewec")
-damage_multiplier = 0.1
+damage_multiplier = 1.0
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=943199638]
 offset_left = -38.0
@@ -44,6 +44,6 @@ collide_with_areas = true
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_kpr8r")
 
-[node name="ShootCoolDown" type="Timer" parent="." unique_id=14494522]
+[node name="DamageCoolDown" type="Timer" parent="." unique_id=14494522]
 wait_time = 2.0
 one_shot = true

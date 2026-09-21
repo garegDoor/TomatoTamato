@@ -9,54 +9,31 @@
 script = ExtResource("2_dewec")
 metadata/_custom_type_script = "uid://doe8vwtg2v60j"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nytcm"]
-size = Vector2(321, 86)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_23u0k"]
 size = Vector2(60, 98)
 
-[node name="Character" type="CharacterBody2D" unique_id=1209023298 node_paths=PackedStringArray("right_muzzle", "left_muzzle")]
+[node name="Character" type="CharacterBody2D" unique_id=1209023298 node_paths=PackedStringArray("right_muzzle")]
 collision_layer = 7
 script = ExtResource("1_ushfy")
-right_muzzle = NodePath("TextureRect/Marker2D")
-left_muzzle = NodePath("Marker2D2")
+right_muzzle = NodePath("CollisionShape2D/TextureRect/Marker2D")
 player_stats = SubResource("Resource_gntrk")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=132458880]
-offset_left = -38.0
-offset_top = -64.0
-offset_right = 38.0
-offset_bottom = 62.0
-texture = ExtResource("2_owm7s")
-
-[node name="Marker2D" type="Marker2D" parent="TextureRect" unique_id=1938622410]
-position = Vector2(115, 65)
-
-[node name="Sprite2D" type="Sprite2D" parent="TextureRect/Marker2D" unique_id=172479921]
-scale = Vector2(0.2, 0.5)
-texture = ExtResource("3_owm7s")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TextureRect/Marker2D" unique_id=1570764057]
-scale = Vector2(0.2, 0.5)
-shape = SubResource("RectangleShape2D_nytcm")
-disabled = true
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=911637871]
-position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_23u0k")
 
-[node name="Marker2D2" type="Marker2D" parent="." unique_id=2004224905]
-visible = false
-position = Vector2(-76, 1)
+[node name="TextureRect" type="TextureRect" parent="CollisionShape2D" unique_id=132458880]
+offset_left = -38.0
+offset_top = -63.0
+offset_right = 38.0
+offset_bottom = 63.0
+texture = ExtResource("2_owm7s")
 
-[node name="Sprite2D" type="Sprite2D" parent="Marker2D2" unique_id=691426441]
+[node name="Marker2D" type="Marker2D" parent="CollisionShape2D/TextureRect" unique_id=1938622410]
+position = Vector2(115, 65)
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D/TextureRect/Marker2D" unique_id=172479921]
 scale = Vector2(0.2, 0.5)
 texture = ExtResource("3_owm7s")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Marker2D2" unique_id=798238326]
-scale = Vector2(0.2, 0.5)
-shape = SubResource("RectangleShape2D_nytcm")
-disabled = true
 
 [node name="ShootCoolDown" type="Timer" parent="." unique_id=1747054454]
 wait_time = 2.0

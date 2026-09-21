@@ -2,7 +2,7 @@ extends Area2D
 class_name splat
 
 @export_category("Enemy info")
-@export var damage : int = 10
+@export var damage : float = 10.0
 
 @export_category("Tomato Status")
 # add sprites here

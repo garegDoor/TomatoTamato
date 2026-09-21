@@ -11,10 +11,14 @@ var direction : int = 1
 
 @export_category("Enemy Stats")
 @export var enemy_stats : EnemyStats
-@export var damage_multiplier : float = 1
+@export var damage_multiplier : float = 2.0
+
+@export_category("Timer")
+@onready var damage_cooldown = $DamageCoolDown
+var can_damage : bool = true
 
 func _ready():
-	pass
+	damage_cooldown.timeout.connect(on_damage_cooldown_timeout)
 	
 func _process(delta : float) -> void:
 	on_death()
@@ -39,18 +43,24 @@ func _physics_process(delta: float) -> void:
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
 			
-		if collider.is_in_group("Player"):
-			print("Collided with player!")
+		if collider.is_in_group("Player") and can_damage:
+			can_damage = false
+			damage_cooldown.start()
+	
 			enemy_stats.attack *= damage_multiplier
 			collider.player_stats.damage_health(enemy_stats.attack)
 			print("[PLAYER HEALTH]: ", collider.player_stats.health)
 			
 		elif collider.is_in_group("Platform"):
+			print("Coolided with platform!")
 			face_other_way()
 	
 func face_other_way():
 	direction = -direction
 	floor_check.position.x *= -1
+	
+func on_damage_cooldown_timeout():
+	can_damage = true
 	
 func on_death():
 	if enemy_stats.health <= 0:

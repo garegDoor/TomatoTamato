@@ -1,16 +1,16 @@
 class_name PlayerStats
 extends Resource
 
-@export var health : int = 100
-@export var armor : int = 10
-@export var attack : int = 10
+@export var health : float = 100.0
+@export var armor : float = 10.0
+@export var attack : float = 10.0
 
 @export var tomato : int = 0
 
-func damage_health(damage : int):
+func damage_health(damage : float):
 	health -= damage
 	
-func increase_armor(boost : int):
+func increase_armor(boost : float):
 	armor += boost
 	
 func add_tomato_count(count : int):

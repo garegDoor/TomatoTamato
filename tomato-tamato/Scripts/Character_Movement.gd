@@ -5,7 +5,12 @@ class_name character_movement
 const SPEED = 300.0
 @export var JUMP_VELOCITY = -600.0
 @export var JUMP_MULTIPLIER = 0.2
-@onready var texture_rect : TextureRect = $TextureRect
+
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+
+var original_collider_x : float
+var facing_direction : float = 1.0
+
 
 @export_category("Projectile")
 @onready var main = get_tree().get_root().get_node("Platform")
@@ -21,19 +26,23 @@ var charging_time := 0.0
 
 @export_category("Spawning Points")
 @export var right_muzzle: Marker2D
-@export var left_muzzle: Marker2D
-
-var facing_direction : float = 1.0
 
 @export_category("Player Stats")
 @export var player_stats : PlayerStats
 
 @export_category("Timer")
-@onready var shoot_cooldown = $ShootCoolDown
+@onready var damage_cooldown = $ShootCoolDown
 var can_shoot : bool = true
+var can_damage : bool = true
 
 func _ready():
-	shoot_cooldown.timeout.connect(on_shoot_cooldown_timeout)
+	#shoot_cooldown.timeout.connect(on_shoot_cooldown_timeout)
+	damage_cooldown.timeout.connect(on_damage_cooldown_timeout)
+	original_collider_x = abs(collision_shape.position.x)
+	
+	if original_collider_x == null:
+		print("No collision or texture")
+		return
 	
 func _process(delta : float) -> void:
 		on_death()
@@ -77,7 +86,7 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		velocity.x = direction * SPEED
 		facing_direction = sign(direction)
-		texture_rect.scale.x = facing_direction
+		collision_shape.scale.x = facing_direction
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		
@@ -85,9 +94,17 @@ func _physics_process(delta: float) -> void:
 	
 	for i in range(get_slide_collision_count()):
 		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
 			
-		if collision.get_collider().is_in_group("Enemy"):
+		if collision.get_collider().is_in_group("Enemy") and can_damage:
 			print("Collided with enemy via movement!")
+			can_damage = false
+			damage_cooldown.start()
+	
+			collider.enemy_stats.attack *= collider.damage_multiplier
+			player_stats.damage_health(collider.enemy_stats.attack)
+			print("[PLAYER HEALTH]: ", player_stats.health)
+			
 	
 func aim(delta : float) -> void:
 	charging_time += delta
@@ -114,8 +131,8 @@ func shoot():
 	
 	player_stats.remove_tomato_count(1)
 	
-func on_shoot_cooldown_timeout():
-	can_shoot = true
+func on_damage_cooldown_timeout():
+	can_damage = true
 	
 func on_death():
 	#print("health: ", player_stats.health)

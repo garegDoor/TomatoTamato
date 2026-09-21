@@ -6,7 +6,7 @@ class_name enemy_damage
 @export var damage : int = 10
 
 @export var enemy_stats : EnemyStats
-@export var damaged : int = 10
+@export var damaged : float = 10.0
 
 #Trigger Collider
 func _on_body_entered(body: Area2D) -> void:
