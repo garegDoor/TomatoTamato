@@ -2,13 +2,21 @@
 
 [ext_resource type="Texture2D" uid="uid://dd1ja0sp5x3n1" path="res://Art/drive-download-20260917T205431Z-1-001/CharacterSelect_NameTag_PlayerToggle_Unselected.png" id="1_wovta"]
 [ext_resource type="Script" uid="uid://bcon5jkqmjlrg" path="res://Scripts/Enemy_Movement.gd" id="1_xeo28"]
+[ext_resource type="Script" uid="uid://dolhqudxdtmxv" path="res://Scripts/Enemy_Stats.gd" id="2_xeo28"]
+
+[sub_resource type="Resource" id="Resource_dewec"]
+script = ExtResource("2_xeo28")
+metadata/_custom_type_script = "uid://dolhqudxdtmxv"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kpr8r"]
 size = Vector2(61, 96)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=555584308]
 collision_layer = 6
+collision_mask = 6
 script = ExtResource("1_xeo28")
+enemy_stats = SubResource("Resource_dewec")
+damage_multiplier = 0.1
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=943199638]
 offset_left = -38.0
@@ -17,9 +25,20 @@ offset_right = 38.0
 offset_bottom = 63.0
 texture = ExtResource("1_wovta")
 
-[node name="FloorCheck" type="RayCast2D" parent="." unique_id=1200939632]
-target_position = Vector2(33, 48)
+[node name="Area2D" type="Area2D" parent="TextureRect" unique_id=493014548]
+position = Vector2(38, 63)
+collision_layer = 6
 collision_mask = 6
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TextureRect/Area2D" unique_id=1011564377]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_kpr8r")
+
+[node name="FloorCheck" type="RayCast2D" parent="." unique_id=1200939632]
+position = Vector2(28, 0)
+target_position = Vector2(3, 52)
+collision_mask = 7
+collide_with_areas = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=932888084]
 position = Vector2(-0.5, 0)

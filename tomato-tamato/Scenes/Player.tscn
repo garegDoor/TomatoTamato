@@ -1,19 +1,26 @@
 [gd_scene format=3 uid="uid://jgm6fo4bq042"]
 
 [ext_resource type="Script" uid="uid://653uxttwk6ga" path="res://Scripts/Character_Movement.gd" id="1_ushfy"]
+[ext_resource type="Script" uid="uid://doe8vwtg2v60j" path="res://Scripts/Player_Stats.gd" id="2_dewec"]
 [ext_resource type="Texture2D" uid="uid://d3e6pecs1bfwg" path="res://Art/drive-download-20260917T205431Z-1-001/CharacterSelect_NameTag_CPUToggle_Unselected.png" id="2_owm7s"]
 [ext_resource type="Texture2D" uid="uid://drtxftx036u5w" path="res://Art/drive-download-20260917T205431Z-1-001/CharacterSelect_NameTag_Name_Unselected.png" id="3_owm7s"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_23u0k"]
-size = Vector2(60, 98)
+[sub_resource type="Resource" id="Resource_gntrk"]
+script = ExtResource("2_dewec")
+metadata/_custom_type_script = "uid://doe8vwtg2v60j"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nytcm"]
 size = Vector2(321, 86)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_23u0k"]
+size = Vector2(60, 98)
+
 [node name="Character" type="CharacterBody2D" unique_id=1209023298 node_paths=PackedStringArray("right_muzzle", "left_muzzle")]
+collision_layer = 7
 script = ExtResource("1_ushfy")
-right_muzzle = NodePath("Marker2D")
+right_muzzle = NodePath("TextureRect/Marker2D")
 left_muzzle = NodePath("Marker2D2")
+player_stats = SubResource("Resource_gntrk")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=132458880]
 offset_left = -38.0
@@ -22,23 +29,24 @@ offset_right = 38.0
 offset_bottom = 62.0
 texture = ExtResource("2_owm7s")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=911637871]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_23u0k")
+[node name="Marker2D" type="Marker2D" parent="TextureRect" unique_id=1938622410]
+position = Vector2(115, 65)
 
-[node name="Marker2D" type="Marker2D" parent="." unique_id=1938622410]
-position = Vector2(77, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="Marker2D" unique_id=172479921]
+[node name="Sprite2D" type="Sprite2D" parent="TextureRect/Marker2D" unique_id=172479921]
 scale = Vector2(0.2, 0.5)
 texture = ExtResource("3_owm7s")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Marker2D" unique_id=1570764057]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextureRect/Marker2D" unique_id=1570764057]
 scale = Vector2(0.2, 0.5)
 shape = SubResource("RectangleShape2D_nytcm")
 disabled = true
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=911637871]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_23u0k")
+
 [node name="Marker2D2" type="Marker2D" parent="." unique_id=2004224905]
+visible = false
 position = Vector2(-76, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Marker2D2" unique_id=691426441]

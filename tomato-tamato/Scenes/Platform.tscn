@@ -6,12 +6,8 @@
 [ext_resource type="Script" uid="uid://clrfjfajln10e" path="res://Scripts/Death_Block.gd" id="3_kti7u"]
 [ext_resource type="Script" uid="uid://doe8vwtg2v60j" path="res://Scripts/Player_Stats.gd" id="3_vayem"]
 [ext_resource type="Texture2D" uid="uid://dufu0c6msso6v" path="res://Art/drive-download-20260917T205431Z-1-001/CharacterSelect_NameTag_PlayerToggle_Selected.png" id="4_7274a"]
+[ext_resource type="Script" uid="uid://bcpeys87furji" path="res://Scripts/Tomato.gd" id="5_k52t2"]
 [ext_resource type="PackedScene" uid="uid://c21dtca8jox1f" path="res://Scenes/Enemy.tscn" id="7_04qkc"]
-[ext_resource type="PackedScene" uid="uid://dd0fin4lkukr5" path="res://Scenes/EnemyDamage.tscn" id="8_k52t2"]
-
-[sub_resource type="Resource" id="Resource_kti7u"]
-script = ExtResource("3_vayem")
-metadata/_custom_type_script = "uid://doe8vwtg2v60j"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7k6p"]
 size = Vector2(6.2000017, 99)
@@ -35,16 +31,12 @@ JUMP_VELOCITY = -650.0
 [node name="Enemy" parent="." unique_id=888550324 groups=["Enemy"] instance=ExtResource("7_04qkc")]
 position = Vector2(541, 503)
 
-[node name="EnemyDamage" parent="." unique_id=1531061585 instance=ExtResource("8_k52t2")]
-position = Vector2(615, 506)
-
 [node name="Pickable Items" type="Node" parent="." unique_id=846075099]
 
 [node name="Armour Boost" type="Area2D" parent="Pickable Items" unique_id=1379797272]
-position = Vector2(331, 512)
+position = Vector2(331.00003, 176)
 scale = Vector2(5, 0.5)
 script = ExtResource("2_7274a")
-player_stats = SubResource("Resource_kti7u")
 
 [node name="Sprite2D" type="Sprite2D" parent="Pickable Items/Armour Boost" unique_id=1971447526]
 position = Vector2(-2.2947788e-06, 1)
@@ -52,6 +44,20 @@ scale = Vector2(0.1, 1)
 texture = ExtResource("4_7274a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pickable Items/Armour Boost" unique_id=1082152759]
+position = Vector2(5.8740377e-05, 0.5)
+shape = SubResource("RectangleShape2D_y7k6p")
+
+[node name="Tomato" type="Area2D" parent="Pickable Items" unique_id=587775564]
+position = Vector2(287, 519)
+scale = Vector2(5, 0.5)
+script = ExtResource("5_k52t2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Pickable Items/Tomato" unique_id=1139434307]
+position = Vector2(-2.2947788e-06, 1)
+scale = Vector2(0.1, 1)
+texture = ExtResource("4_7274a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickable Items/Tomato" unique_id=1726274107]
 position = Vector2(5.8740377e-05, 0.5)
 shape = SubResource("RectangleShape2D_y7k6p")
 
@@ -161,6 +167,27 @@ texture = ExtResource("2_kti7u")
 visible = false
 shape = SubResource("RectangleShape2D_xbr7n")
 
+[node name="StaticBlock5" type="StaticBody2D" parent="Blocks" unique_id=1830872946 groups=["Platform"]]
+position = Vector2(948, 519)
+collision_layer = 3
+collision_mask = 7
+
+[node name="Area2D" type="Area2D" parent="Blocks/StaticBlock5" unique_id=153002006]
+position = Vector2(2, 2)
+collision_layer = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Blocks/StaticBlock5/Area2D" unique_id=952930638]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_xbr7n")
+
+[node name="Sprite2D" type="Sprite2D" parent="Blocks/StaticBlock5" unique_id=1023636151]
+position = Vector2(2.5, 0)
+texture = ExtResource("2_kti7u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBlock5" unique_id=838481759]
+position = Vector2(2, -1)
+shape = SubResource("RectangleShape2D_xbr7n")
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1450234279]
 visible = false
 offset_left = -6.1035156e-05
@@ -179,4 +206,5 @@ shape = SubResource("RectangleShape2D_23u0k")
 one_way_collision = true
 
 [connection signal="body_entered" from="Pickable Items/Armour Boost" to="Pickable Items/Armour Boost" method="_on_body_entered"]
+[connection signal="body_entered" from="Pickable Items/Tomato" to="Pickable Items/Tomato" method="_on_body_entered"]
 [connection signal="body_entered" from="Blocks/Death Block" to="Blocks/Death Block" method="_on_body_entered"]
